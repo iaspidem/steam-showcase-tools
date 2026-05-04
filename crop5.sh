@@ -13,6 +13,6 @@ if [ "$2" -gt "$3" ]; then
     echo "Type: Horizontal"
 elif [ "$2" -lt "$3" ]; then
     echo "Type: Vertical"
-else
+elif [ "$2" -eq "$3" ]; then
     echo "Type: Square"
 fi
