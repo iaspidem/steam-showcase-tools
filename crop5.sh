@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Get video input file
-echo "Enter file path:"
-read filepath
+echo "Enter file name:"
+read filename
 
 # Return info on file with FFmpeg
-ffmpeg -i $filepath -hide_banner
+ffmpeg -i data/$filename -hide_banner
