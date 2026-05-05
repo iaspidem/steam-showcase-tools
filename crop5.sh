@@ -16,3 +16,10 @@ elif [ "$2" -lt "$3" ]; then
 elif [ "$2" -eq "$3" ]; then
     echo "Type: Square"
 fi
+
+# Check video width
+if [ $(($2 % 5)) -ne 0 ]; then
+    echo "Error: Width not divisible by 5"
+else # Perform crop
+    echo "Performing video crop"
+fi
