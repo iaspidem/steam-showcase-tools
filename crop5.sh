@@ -22,11 +22,11 @@ if (( "$2" % 5 != 0 )); then
     echo "Error: Width not divisible by 5"
 else # Perform crop
     echo
-    echo "Performing video crop"
-    x=0
-    w=$(($2 / 5))
-    end=0
-    c=1
+    echo "Performing video crop..."
+    x=0 # x position of crop
+    w=$(($2 / 5)) # width of crop
+    end=0 # end point of crop
+    c=1 # counter
     while [ $c -le 5 ]; do # Perform crop 5 times
         echo
         echo "Crop size: "$w"x"$3""
