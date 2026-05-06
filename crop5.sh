@@ -21,11 +21,20 @@ fi
 if (( "$2" % 5 != 0 )); then
     echo "Error: Width not divisible by 5"
 else # Perform crop
+    echo
     echo "Performing video crop"
+    x=0
+    w=$(($2 / 5))
+    end=0
     c=1
     while [ $c -le 5 ]; do # Perform crop 5 times
+        echo
+        echo "Crop size: "$w"x"$3""
+        end=$((x+w))
+        echo "Crop position: "$x"-"$end""
         #ffmpeg -i data/$1 -vf "crop=" output/c"$c".gif
         echo "Status: c"$c".gif complete"
         c=$((c+1)) # increment counter by 1
+        x=$((x+w))
     done
 fi
