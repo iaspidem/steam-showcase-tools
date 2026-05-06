@@ -5,8 +5,12 @@
 #read filename
 
 # Return info on file with FFmpeg
-ffmpeg -i data/$1 -hide_banner
-echo "Dimensions: "$2"x"$3""
+#ffmpeg -i data/$1 -hide_banner
+
+# Return input video dimensions with FFprobe
+dim=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 data/$1)
+echo "Dimensions: $dim"
+exit 1
 
 # Detect video orientation
 if [ "$2" -gt "$3" ]; then
