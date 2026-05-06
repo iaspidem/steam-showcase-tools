@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Get video input file
-#echo "Enter file name:"
-#read filename
-
-# Return info on file with FFmpeg
-#ffmpeg -i data/$1 -hide_banner
-
 # Return input video dimensions with FFprobe
 dim=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 data/$1)
 echo "Dimensions: $dim"
@@ -44,8 +37,11 @@ if (( "$w" % 5 != 0 )); then
 else # Perform crop
     echo
     echo "Performing video crop..."
-    x=0 # x position of crop
     wc=$(($w / 5)) # width of crop
+    if (( "$wc" < 100 )); then
+        echo "Error: video resolution too low"
+    fi
+    x=0 # x position of crop
     end=0 # end point of crop
     c=1 # counter
     while [ $c -le 5 ]; do # Perform crop 5 times
