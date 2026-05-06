@@ -10,14 +10,18 @@
 # Return input video dimensions with FFprobe
 dim=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 data/$1)
 echo "Dimensions: $dim"
-exit 1
+w=${dim%x*}
+h=${dim#*x}
+#echo "$w pixel width"
+#echo "$h pixel height"
+#exit 1
 
 # Detect video orientation
-if [ "$2" -gt "$3" ]; then
+if [ "$w" -gt "$h" ]; then
     echo "Orientation: Horizontal"
-elif [ "$2" -lt "$3" ]; then
+elif [ "$w" -lt "$h" ]; then
     echo "Orientation: Vertical"
-elif [ "$2" -eq "$3" ]; then
+elif [ "$w" -eq "$h" ]; then
     echo "Orientation: Square"
 fi
 
@@ -34,25 +38,25 @@ else
 fi
 
 # Check video width
-if (( "$2" % 5 != 0 )); then
+if (( "$w" % 5 != 0 )); then
     echo "Error: Width not divisible by 5"
     exit 1
 else # Perform crop
     echo
     echo "Performing video crop..."
     x=0 # x position of crop
-    w=$(($2 / 5)) # width of crop
+    wc=$(($w / 5)) # width of crop
     end=0 # end point of crop
     c=1 # counter
     while [ $c -le 5 ]; do # Perform crop 5 times
         outfile="c${c}${ext}" # Name of output file
         echo
-        echo "Crop size: "$w"x"$3""
-        end=$((x+w))
+        echo "Crop size: "$wc"x"$h""
+        end=$((x+wc))
         echo "Crop position: "$x"-"$end""
         #ffmpeg -i data/$1 -vf "crop=" output/c"$c".gif
         echo "Status: $outfile complete"
         c=$((c+1)) # increment counter by 1
-        x=$((x+w)) # increment x position by width
+        x=$((x+wc)) # increment x position by width
     done
 fi
