@@ -50,8 +50,14 @@ else # Perform crop
         echo "Crop size: "$wc"x"$h""
         end=$((x+wc))
         echo "Crop position: "$x"-"$end""
-        #ffmpeg -i data/$1 -vf "crop=" output/c"$c".gif
+        ffmpeg -i data/$1 -vf "crop=$wc:$h:$x:0" output/$outfile -hide_banner
         echo "Status: $outfile complete"
+
+        # Testing
+        if (( c == 1 )); then
+            exit 1
+        fi
+
         c=$((c+1)) # increment counter by 1
         x=$((x+wc)) # increment x position by width
     done
