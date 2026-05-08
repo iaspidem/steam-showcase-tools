@@ -17,12 +17,9 @@ fi
 
 # Detect video type
 if [[ $1 == *".mp4" ]]; then
-    ext=".mp4"
     echo "Type: mp4"
 elif [[ $1 == *".gif" ]]; then
-    ext=".gif"
     echo "Type: gif"
 else
     echo "Error: Only .gif and .mp4 file type supported"
-    exit 1
 fi
